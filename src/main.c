@@ -15,7 +15,7 @@ typedef struct wrong{
 int ModeChoose();
 void TrainigModul();
 void LoadWords(wv **head_list,int* structcounter);
-void PrintWords(wv *head_list,int* structcounter);
+void PrintWords(wv **head_list,int* structcounter);
 
 int main(){
     //int mode=ModeChoose();
@@ -51,6 +51,7 @@ int ModeChoose(){
 
 void LoadWords(wv **head_list,int* structcounter){
     FILE *f;
+    * structcounter=0;
     wv *p=*head_list, *tail=(wv *)&p;
     char st[80];
     f=fopen("wrong_verbs.txt", "r");
@@ -69,6 +70,7 @@ void LoadWords(wv **head_list,int* structcounter){
             g++;
         }
         p->form1[g]='\0';
+        i++;
         g=0;
         while(st[i]!='\0' && st[i]!=' ' && g<20){
             p->form2[g]=st[i];
@@ -76,6 +78,7 @@ void LoadWords(wv **head_list,int* structcounter){
             g++;
         }
         p->form2[g]='\0';
+        i++;
         g=0;
         while(st[i]!='\0' && st[i]!=' ' && g<20){
             p->form3[g]=st[i];
@@ -83,6 +86,7 @@ void LoadWords(wv **head_list,int* structcounter){
             g++;
         }
         p->form3[g]='\0';
+        i++;
         g=0;
         while(st[i]!='\0' && st[i]!=' ' && g<20){
             p->translate[g]=st[i];
@@ -91,14 +95,20 @@ void LoadWords(wv **head_list,int* structcounter){
         }
         p->translate[g]='\0';
         (*structcounter)++;
+        printf("\n Первая форма глагола (Fist form): %s",p->form1);
+        printf("\n Первая форма глагола (Second form): %s",p->form2);
+        printf("\n Первая форма глагола (Third form): %s",p->form3);
+        printf("\n Первая форма глагола (Translate): %s",p->translate);
+        printf("\n *structcounter=%d",*structcounter);
     }
     tail->next=NULL;
     fclose(f);
 }
 
-void PrintWords(wv *head_list,int* structcounter){
-        int n=*structcounter;
-        wv* p=head_list;
+void PrintWords(wv **head_list,int* structcounter){
+        int n=1;//*structcounter;
+        printf("\n Repeating %d words",*structcounter);
+        wv* p=*head_list;
         for(;n>0 && p!=NULL;n--, p=p->next){
             printf("\n Первая форма глагола (Fist form): %s",p->form1);
             printf("\n Первая форма глагола (Second form): %s",p->form2);
