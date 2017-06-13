@@ -19,10 +19,10 @@ void PrintWords(wv **head_list,int* structcounter);
 
 int main(){
     //int mode=ModeChoose();
-    wv *head_list;
+    wv *head_list=(wv*)malloc(sizeof(wv));;
     int structcounter;
     LoadWords(&head_list, &structcounter);
-    PrintWords(head_list, &structcounter);
+    PrintWords(&head_list, &structcounter);
     return 0;
 }
 
@@ -51,7 +51,7 @@ int ModeChoose(){
 
 void LoadWords(wv **head_list,int* structcounter){
     FILE *f;
-    * structcounter=0;
+    *structcounter=0;
     wv *p=*head_list, *tail=(wv *)&p;
     char st[80];
     f=fopen("wrong_verbs.txt", "r");
@@ -61,10 +61,12 @@ void LoadWords(wv **head_list,int* structcounter){
     }
     while(fgets(st,81,f)){
         int i=0, g=0;
-        p=(wv*)malloc(sizeof(wv));
-        tail->next=p;
+        if((*structcounter)!=0){
+			p=(wv*)malloc(sizeof(wv));
+		}
+		tail->next=p;
         tail=p;
-        while(st[i]!='\0' && st[i]!=' ' && g<20){
+		while(st[i]!='\0' && st[i]!=' ' && g<20){
             p->form1[g]=st[i];
             i++;
             g++;
@@ -106,7 +108,7 @@ void LoadWords(wv **head_list,int* structcounter){
 }
 
 void PrintWords(wv **head_list,int* structcounter){
-        int n=1;//*structcounter;
+        int n=(*structcounter);
         printf("\n Repeating %d words",*structcounter);
         wv* p=*head_list;
         for(;n>0 && p!=NULL;n--, p=p->next){
