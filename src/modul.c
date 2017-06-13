@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "modul.h"
 
 void QuestionAnswer(wv **head_list, int wordsquantity, int *falsecounter, int *truecounter, int *totalcounter){
 	srand(time(NULL));
