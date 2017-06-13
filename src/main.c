@@ -1,31 +1,29 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <unistd.h>
-#include <unistd.h>
-#include "modul.h"
-
-int ModeChoose();
-void TrainigModul();
-
+#include <stdlib.h>
+//#include "modul.h"
 
 typedef struct wrong{
     struct wrong * next;
-    char[20] form1;
-    char[20] form2;
-    char[20] form3;
-    char[20] translate;
+    char form1[20];
+    char form2[20];
+    char form3[20];
+    char translate[20];
     int lastanswer;
 } wv;
 
-void PrintWords(wv **head_list, int* structcounter);
+int ModeChoose();
+void TrainigModul();
 void LoadWords(wv **head_list,int* structcounter);
+void PrintWords(wv *head_list,int* structcounter);
 
 int main(){
-        int mode=ModeChoose();
-        wv *head_list;
-        int structcounter;
-        LoadWords(&head_list, &structcounter);
-        PrintWords(&head_list, &structcounter);
-        return 0;
+    //int mode=ModeChoose();
+    wv *head_list;
+    int structcounter;
+    LoadWords(&head_list, &structcounter);
+    PrintWords(head_list, &structcounter);
+    return 0;
 }
 
 int ModeChoose(){
@@ -47,14 +45,17 @@ int ModeChoose(){
     return answer1;
 }
 
+//void TrainigModul(){
+    //LoadWords(wv *
+//}
+
 void LoadWords(wv **head_list,int* structcounter){
     FILE *f;
-    *structcounter=0;
-    wv* p=*head_list, tail=&(wv *)p;
-    char st[81];
+    wv *p=*head_list, *tail=(wv *)&p;
+    char st[80];
     f=fopen("wrong_verbs.txt", "r");
     if(f==NULL){
-                printf("\nНет доступа к файлу. ");
+                printf("\nНет доступа к файлу. || No access to file.\n");
                 return -1;
     }
     while(fgets(st,81,f)){
@@ -95,20 +96,13 @@ void LoadWords(wv **head_list,int* structcounter){
     fclose(f);
 }
 
-void PrintWords(wv **head_list, int* structcounter){
-    int n=1//*structcounter;
-    wv* p=*head_list;
-    for(;n>0;n-- && p!=NULL, p=p->next){
-        g=0;
-        while(p->form1[g]='\0' && g<20){
-            printf("%c" p->form1[g]);
-            g++;
+void PrintWords(wv *head_list,int* structcounter){
+        int n=*structcounter;
+        wv* p=head_list;
+        for(;n>0 && p!=NULL;n--, p=p->next){
+            printf("\n Первая форма глагола (Fist form): %s",p->form1);
+            printf("\n Первая форма глагола (Second form): %s",p->form2);
+            printf("\n Первая форма глагола (Third form): %s",p->form3);
+            printf("\n Первая форма глагола (Translate): %s",p->translate);
         }
-        p->form1[g]='\0';
-        g=0;
-        //printf("\n Первая форма глагола (Fist form): %s",p->form1);
-        //printf("\n Первая форма глагола (Second form): %s",p->form2);
-        //printf("\n Первая форма глагола (Third form): %s",p->form3);
-        //printf("\n Первая форма глагола (Translate): %s",p->translate);
     }
-}
