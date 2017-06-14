@@ -1,1 +1,2 @@
+[![Build Status](https://travis-ci.org/jeanstefanovich/wrong_verbs.svg?branch=master)](https://travis-ci.org/jeanstefanovich/wrong_verbs)
 Приложение для изучения неправильных глаголов английского языка с переводом их на русский.
