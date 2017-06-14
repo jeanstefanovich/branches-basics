@@ -16,8 +16,8 @@ build/src/main.o:
 	$(CC) -I src/ -Werror -Wall -c -o build/src/main.o src/main.c
 
 wrong_verbs.txt:
-        mkdir -p bin/
-        cp src/wrong_verbs.txt bin/wrong_verbs.txt
+	mkdir -p bin/
+	cp src/wrong_verbs.txt bin/wrong_verbs.txt
 
 clean:
 	rm -rf bin/
